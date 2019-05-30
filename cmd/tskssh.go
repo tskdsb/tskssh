@@ -32,6 +32,9 @@ func main() {
 		util.LogErr(err)
 		os.Exit(1)
 	}
+	defer func() {
+		util.LogErr(host.Client.Close())
+	}()
 
 	if *file != "" {
 		err := host.ReceiveFile(*file, filepath.Join(*workDir, filepath.Base(*file)))
